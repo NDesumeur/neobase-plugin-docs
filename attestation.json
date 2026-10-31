@@ -1,0 +1,9 @@
+{
+  "pluginId": "neobase.docs",
+  "repo": "NDesumeur/neobase-plugin-docs",
+  "version": "1.0.1",
+  "sha256": "98d9b0ae88bbd0aa00d9ea765fd11f2bfb91221706376e30ac063d13d6788734",
+  "approvedAt": "2026-10-31T17:51:20.951Z",
+  "neobase": ">=4.0.0",
+  "signature": "jYeSKw/Su9M1QZkR9VKgS8yXO6acZ+vry3uxUwUB9HTbYC/ylvhNeebttgZQx/yVh3BD54ZF8+h33Qf5XnFGAQ=="
+}
