@@ -2,12 +2,89 @@
 // Ses données sont dans le dossier du plugin, que NeoBase sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoBase.
 // Elle demande l'accès complet pour utiliser les outils d'interface de NeoBase. NeoBase ne l'ouvre que si elle est signée.
 const HTML = "";
+/*CSS-MOVED*/ const CSS = `.ofMenu .tbtn{justify-content:flex-start;font:14px var(--text);letter-spacing:0}
+.ofDropM .tbtn{justify-content:flex-start;font:14px var(--text);letter-spacing:0}
+.ofApp{display:flex;background:var(--bg0)}
+.ofSide{width:260px;flex:none;display:flex;flex-direction:column;gap:10px;padding:18px 14px;border-right:3px solid var(--line);background:rgba(var(--d8),.6);overflow:hidden}
+.ofSide .row{gap:8px}
+.ofSide .btn{flex:1;padding:8px 6px;font-size:9px}
+.ofSearch{padding:7px 10px;font-size:14px}
+.ofList{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:2px;margin:0 -6px;padding:0 6px}
+.ofItem{all:unset;cursor:var(--cp,pointer);display:flex;flex-direction:column;gap:2px;padding:8px 10px;color:var(--lilac)}
+.ofItem .n{color:#fff;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ofItem .hint{font-size:12px}
+.ofItem:hover{background:rgba(255,255,255,.04)}
+.ofItem.on{background:rgba(var(--mgr),.18);box-shadow:inset 3px 0 0 var(--magenta)}
+.ofBody{flex:1;min-width:0;display:flex;flex-direction:column}
+.ofEmpty{flex:1;display:grid;place-items:center;padding:30px}
+.ofEmptyIn{max-width:520px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.ofEmptyIn img{width:96px;height:96px;image-rendering:pixelated}
+.ofEmptyIn h2{font:16px var(--title);color:#fff;margin:0}
+.ofEmptyIn p{font-size:16px;line-height:1.5;margin:0}
+.ofMain{flex:1;min-height:0;display:flex;flex-direction:column}
+.f.ofTitle{margin:12px 16px 0;width:auto;align-self:stretch;font-size:18px;padding:8px 12px;background:transparent;box-shadow:none}
+.ofTitle:focus{background:var(--field)}
+.ofBar{display:flex;flex-wrap:wrap;gap:3px;align-items:center;padding:8px 14px;border-bottom:3px solid var(--line)}
+.ofTb{all:unset;cursor:var(--cp,pointer);min-width:30px;height:30px;padding:0 7px;display:grid;place-items:center;color:var(--lilac);font-size:15px;background:var(--btn)}
+.ofTb:hover{background:var(--btnh);color:#fff}
+.ofTb.on{background:rgba(var(--mgr),.4);color:#fff}
+.ofTb.b{font-weight:bold}
+.ofTb.i{font-style:italic}
+.ofTb.u{text-decoration:underline}
+.ofTb.s{text-decoration:line-through}
+.ofSep{width:2px;height:22px;background:var(--line);margin:0 4px}
+.ofSel{height:30px;padding:0 6px;font-size:14px}
+.ofColor{width:30px;height:30px;padding:0;border:0;background:none;cursor:var(--cp,pointer)}
+.ofDrop{position:relative}
+.ofDrop .ofTb{font-size:14px}
+.ofDropM{position:absolute;top:34px;left:0;z-index:20;--fill:var(--win);--c:var(--line2);display:none;flex-direction:column;min-width:210px;padding:6px;filter:drop-shadow(0 4px 0 var(--out))}
+.ofDrop.on .ofDropM{display:flex}
+.ofDropM .tbtn{padding:8px 10px}
+.ofDropM .tbtn:hover{background:rgba(var(--mgr),.16);color:#fff}
+.ofStatus{padding:6px 16px;font-size:13px;color:var(--muted);border-top:3px solid var(--line)}
+.dcRow{flex:1;min-height:0;display:flex}
+.dcWrap{flex:1;overflow:auto;background:#2a2238;padding:28px 0 60px}
+.dcPage{width:794px;min-height:1123px;margin:0 auto;padding:90px 96px;background:#fff;color:#1d1d1f;font:12pt/1.5 Calibri,'Segoe UI',Arial,sans-serif;box-shadow:0 6px 0 rgba(0,0,0,.35);outline:none;user-select:text;cursor:text;
+  background-image:repeating-linear-gradient(#fff 0 1123px,#2a2238 1123px 1141px);background-size:100% 1141px}
+.dcPage :is(h1,h2,h3,h4,p,li,blockquote,td,th){font-family:inherit;letter-spacing:normal;text-shadow:none;text-transform:none}
+.dcPage :is(h1,h2,h3){color:#1d1d1f;line-height:1.25}
+.dcPage h1{font-size:24pt;margin:.6em 0 .3em}
+.dcPage h2{font-size:18pt;margin:.6em 0 .3em}
+.dcPage h3{font-size:14pt;margin:.6em 0 .3em}
+.dcPage p{margin:0 0 .6em}
+.dcPage blockquote{margin:.6em 0;padding:.2em 1em;border-left:4px solid #b44cff;color:#444}
+.dcPage pre{background:#f3eefc;padding:.6em .8em;font:10.5pt Consolas,monospace;white-space:pre-wrap}
+.dcPage table{border-collapse:collapse;width:100%;margin:.6em 0}
+.dcPage td,.dcPage th{border:1px solid #9a90b0;padding:4px 8px;vertical-align:top;min-width:40px}
+.dcPage img{max-width:100%;cursor:pointer}
+.dcPage img.dcSel{outline:3px solid #b44cff}
+.dcPage ul.dcCheck{list-style:none;padding-left:1.4em}
+.dcPage ul.dcCheck li{position:relative}
+.dcPage ul.dcCheck li::before{content:'';position:absolute;left:-1.4em;top:.3em;width:.8em;height:.8em;border:2px solid #6b5a90;border-radius:2px;cursor:pointer}
+.dcPage ul.dcCheck li.done{color:#888;text-decoration:line-through}
+.dcPage ul.dcCheck li.done::before{background:#b44cff;border-color:#b44cff}
+.dcPage .dcBreak{border:0;border-top:2px dashed #c8b8e8;margin:1.2em 0}
+.dcPage a{color:#6a2bd8}
+.dcPage hr{border:0;border-top:1px solid #bbb}
+.dcOutline{width:230px;flex:none;--fill:var(--win);display:none;flex-direction:column;gap:4px;padding:14px;overflow-y:auto}
+.dcOutline.on{display:flex}
+.dcOl{all:unset;cursor:var(--cp,pointer);color:var(--lilac);font-size:14px;padding:4px 6px}
+.dcOl:hover{color:#fff;background:rgba(var(--mgr),.15)}
+.dcOl.l2{padding-left:18px}
+.dcOl.l3{padding-left:30px;font-size:13px}
+.dcFind{display:none;gap:6px;align-items:center;padding:8px 14px;--fill:var(--win)}
+.dcFind.on{display:flex}
+.dcFind input{width:200px;padding:6px 10px;font-size:14px}
+.dcFind .btn{padding:6px 10px;font-size:9px}
+.shGrid td.num{text-align:right}
+`;  // le style de ce plugin (il utilise les variables du thème de NeoBase)
 export default async function (ctx) {
   const view = ctx.view;
   if (!ctx.host) { view.textContent = "Ce plugin doit être approuvé par NeoBase pour s'ouvrir."; return; }
   const host = ctx.host, { el, toast, sfx, ask, newTab, pixIcon, PIX, WX } = host;
   const nbConfirm = host.confirm;  // la boîte de confirmation de NeoBase, à la place de celle de Windows
   const folder = ctx.folder, legacy = ctx.legacy || {};
+  ctx.host.addStyle(CSS);
   view.innerHTML = HTML;
   const $ = id => id === "docsApp" ? view : (view.querySelector('#' + id) || document.getElementById(id));  // les identifiants de ta vue d'abord, puis ceux de la page (fenêtres, menus)
   const doc = async n => { try { return await folder.read(n); } catch { return null; } };
