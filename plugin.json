@@ -1,7 +1,7 @@
 {
   "id": "neobase.docs",
   "name": "NeoDocs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "NDesumeur",
   "description": "Un traitement de texte : styles, polices, listes, tableaux, images, recherche, correcteur FR/EN. Ouvre .docx, .html, .md, .txt ; exporte PDF, Word, HTML, Markdown.",
   "icon": "icon.png",
@@ -11,7 +11,7 @@
   "type": "app",
   "category": "Bureautique",
   "mobile": false,
-  "system": false,
+  "system": true,
   "dependencies": {},
   "permissions": [
     "full"
