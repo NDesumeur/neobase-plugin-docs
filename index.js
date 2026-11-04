@@ -1,6 +1,6 @@
 // NeoDocs : ton appli d'origine (HTML et code inchangés), livrée en plugin.
-// Ses données sont dans le dossier du plugin, que NeoBase sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoBase.
-// Elle tourne dans le bac à sable de NeoBase, avec ses outils d'interface (ctx.host) et seulement les autorisations de son plugin.json.
+// Ses données sont dans le dossier du plugin, que NeoDex sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoDex.
+// Elle tourne dans le bac à sable de NeoDex, avec ses outils d'interface (ctx.host) et seulement les autorisations de son plugin.json.
 const HTML = "";
 /*CSS-MOVED*/ const CSS = `.ofMenu .tbtn{justify-content:flex-start;font:14px var(--text);letter-spacing:0}
 .ofDropM .tbtn{justify-content:flex-start;font:14px var(--text);letter-spacing:0}
@@ -77,12 +77,12 @@ const HTML = "";
 .dcFind input{width:200px;padding:6px 10px;font-size:14px}
 .dcFind .btn{padding:6px 10px;font-size:9px}
 .shGrid td.num{text-align:right}
-`;  // le style de ce plugin (il utilise les variables du thème de NeoBase)
+`;  // le style de ce plugin (il utilise les variables du thème de NeoDex)
 export default async function (ctx) {
   const view = ctx.view;
-  if (!ctx.host) { view.textContent = "Ce plugin doit être approuvé par NeoBase pour s'ouvrir."; return; }
+  if (!ctx.host) { view.textContent = "Ce plugin doit être approuvé par NeoDex pour s'ouvrir."; return; }
   const host = ctx.host, { el, toast, sfx, ask, newTab, pixIcon, PIX, WX } = host;
-  const nbConfirm = host.confirm;  // la boîte de confirmation de NeoBase, à la place de celle de Windows
+  const nbConfirm = host.confirm;  // la boîte de confirmation de NeoDex, à la place de celle de Windows
   const folder = ctx.folder, legacy = ctx.legacy || {};
   ctx.host.addStyle(CSS);
   view.innerHTML = HTML;
@@ -288,7 +288,7 @@ table{border-collapse:collapse;width:100%;margin:.6em 0}td,th{border:1px solid #
 ul.dcCheck{list-style:none;padding-left:1.4em}ul.dcCheck li{position:relative}ul.dcCheck li::before{content:'';position:absolute;left:-1.4em;top:.3em;width:.8em;height:.8em;border:2px solid #6b5a90;border-radius:2px}
 ul.dcCheck li.done{color:#888;text-decoration:line-through}ul.dcCheck li.done::before{background:#b44cff;border-color:#b44cff}
 .dcBreak{page-break-after:always;break-after:page;height:0;border:0}a{color:#6a2bd8}hr{border:0;border-top:1px solid #bbb}`;
-const dc = {kind: 'doc', key: 'neodyme:docs', view: 'docsApp', name: 'NeoDocs', newName: 'Document', openHint: 'Ouvrir un document Word (.docx), HTML, Markdown ou texte',
+const dc = {kind: 'doc', key: 'neodex:docs', view: 'docsApp', name: 'NeoDocs', newName: 'Document', openHint: 'Ouvrir un document Word (.docx), HTML, Markdown ou texte',
   intro: 'Traitement de texte : titres, polices, couleurs, listes, tableaux, images, recherche et remplacement, correcteur d\'orthographe. Tes documents sont enregistrés tout seuls et synchronisés entre tes PC ; tu peux les exporter en PDF ou en Word.',
   newData: () => ({html: '<h1>Sans titre</h1><p><br></p>'}),
   fromImport: r => ({html: dcClean(r.html) || '<p><br></p>'}),

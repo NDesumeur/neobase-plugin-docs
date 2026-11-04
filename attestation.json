@@ -1,6 +1,6 @@
 {
-  "pluginId": "neobase.docs",
-  "repo": "NDesumeur/neobase-plugin-docs",
+  "pluginId": "neodex.docs",
+  "repo": "NDesumeur/neodex-plugin-docs",
   "version": "1.0.2",
   "sha256": "43284f6e031ae03a6b8f888bd4d06b62a12b0dea15a907e2e2cc026fd4c13b07",
   "approvedAt": "2026-11-01T00:16:26.460Z",
