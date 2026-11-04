@@ -1,6 +1,6 @@
 // NeoDocs : ton appli d'origine (HTML et code inchangés), livrée en plugin.
 // Ses données sont dans le dossier du plugin, que NeoBase sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoBase.
-// Elle demande l'accès complet pour utiliser les outils d'interface de NeoBase. NeoBase ne l'ouvre que si elle est signée.
+// Elle tourne dans le bac à sable de NeoBase, avec ses outils d'interface (ctx.host) et seulement les autorisations de son plugin.json.
 const HTML = "";
 /*CSS-MOVED*/ const CSS = `.ofMenu .tbtn{justify-content:flex-start;font:14px var(--text);letter-spacing:0}
 .ofDropM .tbtn{justify-content:flex-start;font:14px var(--text);letter-spacing:0}
@@ -113,7 +113,7 @@ function neoFindRun(root, q, o, step) {
     document.adoptedStyleSheets = [...document.adoptedStyleSheets, s]; H.css = true;
   }
   const unmirror = () => { for (const m of H.mirrors) m.remove(); H.mirrors = []; if (H.place) { removeEventListener('scroll', H.place, true); removeEventListener('resize', H.place); H.place = null; } };
-  const clear = () => { CSS.highlights.delete('neo-find'); CSS.highlights.delete('neo-find-cur'); unmirror(); H.ranges = []; H.i = -1; H.key = ''; };
+  const clear = () => { CSS.highlights?.delete('neo-find'); CSS.highlights?.delete('neo-find-cur'); unmirror(); H.ranges = []; H.i = -1; H.key = ''; };
   if (!q) { clear(); return {n: 0, i: -1}; }
   const key = q + '\u0000' + JSON.stringify(o);
   if (key !== H.key || step === 0) {
@@ -150,14 +150,14 @@ function neoFindRun(root, q, o, step) {
       H.place(); addEventListener('scroll', H.place, true); addEventListener('resize', H.place);
     }
     H.ranges = ranges; H.key = key; H.i = -1;
-    CSS.highlights.set('neo-find', new Highlight(...ranges));
+    CSS.highlights?.set('neo-find', new Highlight(...ranges));
     if (step === 0) step = 1;
   }
   const n = H.ranges.length;
-  if (!n) { CSS.highlights.delete('neo-find-cur'); return {n: 0, i: -1}; }
+  if (!n) { CSS.highlights?.delete('neo-find-cur'); return {n: 0, i: -1}; }
   H.i = ((H.i + step) % n + n) % n;
   const r = H.ranges[H.i];
-  CSS.highlights.set('neo-find-cur', new Highlight(r));
+  CSS.highlights?.set('neo-find-cur', new Highlight(r));
   if (r.field) {  // the selection waits for the field to get the focus; the keyboard stays in the find bar
     const f = r.field, m = f.neoMirror; r.field.setSelectionRange(r.s, r.e);
     f.scrollTop += r.getBoundingClientRect().top - m.getBoundingClientRect().top - f.clientHeight / 3; m.scrollTop = f.scrollTop;
@@ -458,13 +458,13 @@ async function dcSpell() {
     if (!n.isConnected || n.data.substr(o, x.w.length) !== x.w) continue;  // typed over meanwhile
     const r = new Range(); r.setStart(n, o); r.setEnd(n, o + x.w.length); ranges.push(r);
   }
-  CSS.highlights.set('neo-spell', new Highlight(...ranges));
+  CSS.highlights?.set('neo-spell', new Highlight(...ranges));
   dc.spellN = ranges.length; dcStatus();
 }
 document.addEventListener('neo-spell-dict', () => dcSpell());
 dc.open = f => {
   dc.cur = f; dc.title.value = f.name; dc.page.innerHTML = f.data.html; dc.img = null;
-  neoFindRun(dc.page, '', {}, 0); dc.fr.classList.remove('on'); CSS.highlights.delete('neo-spell'); dc.spellN = 0; dcStatus(); dcOutline(); setTimeout(dcSpell, 300);
+  neoFindRun(dc.page, '', {}, 0); dc.fr.classList.remove('on'); CSS.highlights?.delete('neo-spell'); dc.spellN = 0; dcStatus(); dcOutline(); setTimeout(dcSpell, 300);
 };
 dc.close = () => { dc.cur = null; };
 dc.icon = __icon('docs'); ofRegister(dc);  // (non indenté : les textes sur plusieurs lignes restent exactement les tiens)
